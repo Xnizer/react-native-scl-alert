@@ -35,8 +35,5 @@
     "test": "node node_modules/jest/bin/jest.js --watch",
     "test:coverage": "node node_modules/jest/bin/jest.js --coverage",
     "lint": "./node_modules/.bin/eslint . --fix; exit 0"
-  },
-  "dependencies": {
-    "prop-types": "^15.6.1"
   }
 }

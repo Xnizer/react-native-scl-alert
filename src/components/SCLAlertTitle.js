@@ -1,30 +1,17 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import variables from '../config/variables';
 
-import {
-  View,
-  ViewPropTypes,
-  StyleSheet,
-  Text
-} from 'react-native'
-
-import variables from '../config/variables'
-
-SCLAlertTitle.propTypes = {
-  title: PropTypes.string.isRequired,
-  titleContainerStyle: ViewPropTypes.style,
-  titleStyle: Text.propTypes.style
-}
 
 SCLAlertTitle.defaultProps = {
   titleContainerStyle: {},
   titleStyle: {}
 }
 
-function SCLAlertTitle (props) {
+function SCLAlertTitle(props) {
   return (
     <View style={[styles.container, props.titleContainerStyle]}>
-      <Text numberOfLines={1} style={[styles.text, props.titleStyle]}>
+      <Text style={[styles.text, props.titleStyle]}>
         {props.title}
       </Text>
     </View>

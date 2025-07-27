@@ -1,13 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, {ReactNode} from 'react'
 
 import {
   Animated,
   Modal,
   View,
-  ViewPropTypes,
   StyleSheet,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  ViewStyle,
 } from 'react-native'
 
 import {
@@ -23,13 +22,9 @@ import {
 import variables from './../config/variables'
 
 class SCLAlert extends React.Component {
-  static propTypes = {
-    children: PropTypes.node,
-    show: PropTypes.bool,
-    cancellable: PropTypes.bool,
-    onRequestClose: PropTypes.func.isRequired,
-    slideAnimationDuration: PropTypes.number,
-    overlayStyle: ViewPropTypes.style
+
+  constructor(props) {
+    super(props);
   }
 
   static defaultProps = {
@@ -46,11 +41,11 @@ class SCLAlert extends React.Component {
 
   slideAnimation = new Animated.Value(0)
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.show && this.show()
   }
 
-  componentDidUpdate (prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     if (this.props.show !== this.state.show) {
       return this[this.props.show ? 'show' : 'hide']()
     }
@@ -60,10 +55,10 @@ class SCLAlert extends React.Component {
    * @description get animation interpolation
    * @return { Array }
    */
-  get interpolationTranslate () {
+  get interpolationTranslate() {
     const move = this.slideAnimation.interpolate({
       inputRange: [0, 1],
-      outputRange: [height, height / -5]
+      outputRange: [height, height / -5],
     })
 
     return [{ translateY: move }]
@@ -97,7 +92,8 @@ class SCLAlert extends React.Component {
       const options = {
         toValue: this.state.show ? 0 : 1,
         duration: this.props.slideAnimationDuration,
-        animation: variables.translateEasing
+        animation: variables.translateEasing,
+        useNativeDriver: true
       }
 
       Animated.timing(
@@ -115,7 +111,7 @@ class SCLAlert extends React.Component {
     this.props.cancellable && this.props.onRequestClose()
   }
 
-  render () {
+  render() {
     return (
       <Modal
         transparent
